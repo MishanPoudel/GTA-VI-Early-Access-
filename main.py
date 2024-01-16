@@ -1,7 +1,7 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 
-app = Ursina(icon = "./assets/gta-vi-logo.ico", title="GTV VI")
+app = Ursina(icon="./assets/gta-vi-logo.ico", title="GTV VI")
 
 window.entity_counter.enabled = False
 window.collider_counter.enabled = False
@@ -27,24 +27,29 @@ except Exception as e:
     print(f"Error loading map: {e}")
 
 player = FirstPersonController(
-    model="cube", collider="box", origin_y="-2", color=color.red
+    model="cube",
+    collider="box",
+    color=color.red,
+    position=(0, 3, 0),
+    origin_y=-0.7,
 )
+camera.position = (0, 1, -7)
+camera.rotation = (-3, 0, 0)
+player.cursor.enabled = False
 
+crosshair = Entity(
+    model="quad", scale=0.005, color=color.white, rotation_z=45, parent=camera.ui
+)
 lamborghini_model = load_model("/models/lamborgini/lamborghini.obj")
 
 lamborghini = Entity(
-    model=lamborghini_model, collider="mesh", texture="/models/lamborgini/lamborghini.jpeg", scale=0.08
+    model=lamborghini_model,
+    collider="mesh",
+    texture="/models/lamborgini/lamborghini.jpeg",
+    scale=0.08,
 )
 
 lamborghini.position = (3.5, 0, 0)
-
-crosshair = Entity(
-    model='quad',
-    scale=0.002,
-    color=color.white,
-    rotation_z=45,
-    parent=camera.ui
-)
 
 
 def input(key):
